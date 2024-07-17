@@ -1,4 +1,4 @@
-[] register a user
+[Done] register a user
 [] login a user
 []  Add new product
 [] Update a product
