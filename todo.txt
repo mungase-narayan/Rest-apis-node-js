@@ -1,0 +1,7 @@
+[] register a user
+[] login a user
+[]  Add new product
+[] Update a product
+[] Get all products
+[] Get single product
+[] Delete a product 
