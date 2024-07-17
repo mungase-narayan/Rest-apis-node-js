@@ -1,6 +1,10 @@
 const Joi = require("joi");
-const {User} = require('../../models');
-  
+const User = require('../../models');
+const bcrypt = require('bcrypt');
+const JwtService = require("../../services/jwtService")
+const customErrorHandler = require('../../services/customErrorHandler');
+
+
 const registerController = {
     async registerUser(req, res, next) {
         // CheckList
@@ -28,15 +32,40 @@ const registerController = {
 
         // Check if user is in the database already
         try{
-            const exist = await User.exists({email: req.body.email});
+            const exist = await User.findOne({email : req.body.email});
             if(exist){
                 return next(customErrorHandler.alreadyExist('This email is already taken'));
             }
         }catch(err){
             return next(err);
         }
+
+        const { fullName, userName, email, password } = req.body;
+        // Hash passwords 
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Prepare the model
+        const user = new User({
+            fullName,
+            userName,
+            email,
+            password: hashedPassword,
+        });
+
+
+        let access_token; 
+        try {
+            const result = await user.save(); 
+            console.log("result :: ", result); 
+            // token
+            access_token = await JwtService.sign({_id: result._id, role: result.role}) 
+
+        }catch(err) {
+            console.log(err)
+            return next(err); 
+        }
          
-        return res.json({ message: "registerUser Logic" });
+        return res.json({ access_token: access_token});
     },
 };
 

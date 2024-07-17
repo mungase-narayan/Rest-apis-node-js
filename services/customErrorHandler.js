@@ -1,5 +1,6 @@
 class customErrorHandler extends Error {
     constructor(status, msg){
+        super();
         this.statusCode = status;
         this.message = msg;
     }
@@ -8,3 +9,5 @@ class customErrorHandler extends Error {
         return new customErrorHandler(409, message);
     }
 }
+
+module.exports = customErrorHandler;
