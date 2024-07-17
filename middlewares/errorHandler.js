@@ -1,4 +1,5 @@
-const { ValidationError } = require('joi') 
+const { ValidationError } = require('joi')
+const customErrorHandler = require('../services/customErrorHandler')
 const {DEBUG_MODE} = require('../config');
 
 const errorHandler = (err, req, res, next) => {
@@ -14,6 +15,14 @@ const errorHandler = (err, req, res, next) => {
             message: err.message,
         }
     }
+
+    if(err instanceof customErrorHandler){
+        statusCode = err.statusCode;
+        data = {
+            message: err.message,
+        }
+    }
+     
     return res.status(statusCode).json(data);
  };
 

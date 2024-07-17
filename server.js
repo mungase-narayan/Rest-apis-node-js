@@ -1,10 +1,20 @@
 const express = require('express');
 const { APP_PORT } = require('./config');
+const {DB_URL} = require('./config')
 
 
 const app =  express();
 const router = require("./routes/index");
 const errorHandler = require('./middlewares/errorHandler');
+const { mongoose } = require('mongoose');
+
+// Database Connection
+mongoose.connect(DB_URL);
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+    console.log('Connected to MongoDB')
+});
 
 app.use(express.json());
 app.use('/api', router)
