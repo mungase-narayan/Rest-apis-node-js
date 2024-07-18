@@ -32,6 +32,7 @@ const loginController = {
                 return next(customErrorHandler.wrongCredentials()); 
             }
 
+
             // Compare the password
             const match = await bcrypt.compare(req.body.password, user.password);
             if(!match){
@@ -42,10 +43,11 @@ const loginController = {
             const access_token = await JwtService.sign({_id: user._id, role: user.role})
             return res.json({ access_token: access_token}); 
 
-
         }catch(err){
             return next(err);
         }
+
+        // return res.json({message: "Login Failed"});
 
     },
 };

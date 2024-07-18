@@ -3,6 +3,7 @@ const User = require('../../models');
 const bcrypt = require('bcrypt');
 const JwtService = require("../../services/jwtService")
 const customErrorHandler = require('../../services/customErrorHandler');
+const loginController = require("./loginControllers");
 
 
 const registerController = {
