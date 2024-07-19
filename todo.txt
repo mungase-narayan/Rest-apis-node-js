@@ -1,6 +1,6 @@
 [Done] register a user
 [Done] login a user
-[] Who am i
+[Done] Who am i
 []  Add new product
 [] Update a product
 [] Get all products

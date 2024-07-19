@@ -46,9 +46,6 @@ const loginController = {
         }catch(err){
             return next(err);
         }
-
-        // return res.json({message: "Login Failed"});
-
     },
 };
 
