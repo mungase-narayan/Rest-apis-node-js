@@ -1,9 +1,12 @@
 const Joi = require("joi");
-const User = require('../../models');
+const User = require('../../models/User');
+const RefreshToken = require('../../models/refreshToken');
 const bcrypt = require('bcrypt');
 const JwtService = require("../../services/jwtService")
 const customErrorHandler = require('../../services/customErrorHandler');
-const loginController = require("./loginControllers");
+const { REFRESH_SECRET } = require("../../config/index");
+
+// const loginController = require("./loginControllers");
 
 
 const registerController = {
@@ -54,19 +57,25 @@ const registerController = {
         });
 
 
-        let access_token; 
+        let access_token;
+        let refresh_token; 
         try {
             const result = await user.save(); 
             console.log("result :: ", result); 
             // token
-            access_token = await JwtService.sign({_id: result._id, role: result.role}) 
+            access_token = await JwtService.sign({_id: result._id, role: result.role});
+            refresh_token = await JwtService.sign({_id: result._id, role: result.role}, '1y',REFRESH_SECRET) ;
+
+            //Database whitelist
+            await RefreshToken.create({token: refresh_token})
+
 
         }catch(err) {
             console.log(err)
             return next(err); 
         }
          
-        return res.json({ access_token: access_token});
+        return res.json({ access_token: access_token, refresh_token: refresh_token});
     },
 };
 
