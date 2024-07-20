@@ -4,10 +4,11 @@ const JwtService = require('../services/jwtService');
 const auth = async  (req, res, next)=> {
     let authHeader = req.headers.authorization;
     if(!authHeader){
-        return next(customErrorHandler.unauthorized());
+        return next(customErrorHandler.unAuthorized());
     }
 
-    const token = authHeader.split(' ')[1];
+    const token = authHeader.split(' ')[1]; 
+
 
     try{
         const {_id, role} = await JwtService.veryfyToken(token);
@@ -19,7 +20,7 @@ const auth = async  (req, res, next)=> {
         next();
 
     }catch(err){
-        return next(customErrorHandler.unauthorized());
+        return next(customErrorHandler.unAuthorized());
     }
 }
 

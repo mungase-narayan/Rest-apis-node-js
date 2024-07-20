@@ -13,7 +13,7 @@ class customErrorHandler extends Error {
         return new customErrorHandler(401, message);
     }
 
-    static unauthorized(message = "unauthorized User") {
+    static unAuthorized(message = "unAuthorized User") {
         return new customErrorHandler(401, message);
     }
 
