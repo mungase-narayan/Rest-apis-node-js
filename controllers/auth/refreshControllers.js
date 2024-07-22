@@ -8,12 +8,6 @@ const { REFRESH_SECRET } = require("../../config/index");
 
 const refreshControllers = {
     async refresh(req, res, next) {
-        // CheckList
-        // [] validate the request
-        // [] Check if refresh token is in database
-        // [] Check if user is in database
-        // [] generate new access token and refresh token 
-        // [] send the response
 
         // validations
         const refreshSchema = Joi.object({
@@ -28,9 +22,7 @@ const refreshControllers = {
         //Check if refresh token is in database
         let refreshtoken;
         try {
-            refreshtoken = await RefreshToken.findOne({
-                token: req.body.refresh_token,
-            });
+            refreshtoken = await RefreshToken.findOne({token: req.body.refresh_token});
             if (!refreshtoken) {
                 return next(
                     CustomErrorHandler.unAuthorized("Invalid refresh token")

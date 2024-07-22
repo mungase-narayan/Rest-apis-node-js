@@ -1,10 +1,10 @@
-[Done] register a user
-[Done] login a user
-[Done] Who am i
-[] Refresh th token
-[] Logout the user
-[]  Add new product
-[] Update a product
-[] Get all products
-[] Get single product
-[] Delete a product 
+[ Done ] register a user
+[ Done ] login a user
+[ Done ] Who am i
+[ Done ] Refresh th token
+[ Done ] Logout the user
+[ Done ]  Add new product  
+[ Done ] Update a product
+[ Done ] Get all products
+[ Done ] Get single product
+[ Done ] Delete a product 

@@ -9,4 +9,4 @@ const refresTokenhSchema = new Schema(
     { timestamps: false }
 );
 
-module.exports = mongoose.model("RefreshToken", refresTokenhSchema, "refreshTokens ");
+module.exports = mongoose.model("RefreshToken", refresTokenhSchema, "refreshTokens");

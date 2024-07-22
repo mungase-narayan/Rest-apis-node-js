@@ -1,6 +1,7 @@
 const express = require('express');
 const { APP_PORT } = require('./config');
 const {DB_URL} = require('./config')
+const path = require('path');
 
 
 const app =  express();
@@ -16,8 +17,13 @@ db.once('open', () => {
     console.log('Connected to MongoDB')
 });
 
+app.use("/uploads", express.static("uploads"));
+global.appRoot = path.resolve(__dirname);
+app.use(express.urlencoded({extended: false}));
+
 app.use(express.json());
-app.use('/api', router)
+app.use('/api', router);
+
+
 app.use(errorHandler); 
- 
 app.listen(APP_PORT, () => console.log(`listening on port ${APP_PORT}`));
