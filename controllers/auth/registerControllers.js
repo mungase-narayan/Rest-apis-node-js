@@ -5,8 +5,7 @@ const bcrypt = require('bcrypt');
 const JwtService = require("../../services/jwtService")
 const customErrorHandler = require('../../services/customErrorHandler');
 const { REFRESH_SECRET } = require("../../config/index");
-
-// const loginController = require("./loginControllers");
+const { sendEmail } = require("../../helpers/mailer");
 
 
 const registerController = {
@@ -57,6 +56,13 @@ const registerController = {
         });
 
 
+        const EmailSubject = "Verify your email";
+        const EmailMessage = `<h2>Verify your email</h2> <p>Hi ${fullName} Thanks for Registering! 😊</p>`;
+        const EmailBody = `<p>Click the link below to verify your email:</p> <a href="${APP_URL}/api/auth/verify-email/${user._id}">Verify Email</a>`;
+
+        await sendEmail(email, EmailSubject, EmailMessage, EmailBody);
+
+        
         let access_token;
         let refresh_token; 
         try {
